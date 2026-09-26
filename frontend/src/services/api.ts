@@ -12,8 +12,13 @@ import { MOCK_TRIP } from './mockData'
 // Set VITE_USE_MOCK=true in .env.local to skip backend calls during development
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true'
 
+// Production API URL (e.g., https://atlas-backend.onrender.com) or default '/api' for Vite dev proxy
+const apiBase = import.meta.env.VITE_API_BASE_URL
+  ? `${(import.meta.env.VITE_API_BASE_URL as string).replace(/\/+$/, '')}/api`
+  : '/api'
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: apiBase,
   headers: { 'Content-Type': 'application/json' },
   timeout: 120_000,
 })
